@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.birdsenger.controllers.TransactionsController"
+      stylesheets="@../css/transactions.css" spacing="25">
+
+    <!-- Header -->
+    <VBox spacing="5">
+        <Label text="Transactions" styleClass="page-title"/>
+        <Label text="Review your recent payments and receipts" styleClass="page-subtitle"/>
+    </VBox>
+
+    <!-- Filter Buttons -->
+    <HBox spacing="15">
+        <Button fx:id="allButton" text="All" styleClass="filter-button-active"
+                onAction="#handleAll"/>
+        <Button fx:id="sentButton" text="Sent" styleClass="filter-button"
+                onAction="#handleSent"/>
+        <Button fx:id="receivedButton" text="Received" styleClass="filter-button"
+                onAction="#handleReceived"/>
+    </HBox>
+
+    <!-- Table Header -->
+    <HBox spacing="20" styleClass="table-header">
+        <padding>
+            <Insets top="15" right="20" bottom="15" left="20"/>
+        </padding>
+        <Label text="Date" prefWidth="120" styleClass="header-label"/>
+        <Label text="Entity" prefWidth="200" styleClass="header-label"/>
+        <Label text="Amount" prefWidth="120" styleClass="header-label"/>
+        <Label text="Status" prefWidth="100" styleClass="header-label"/>
+        <Label text="Action" styleClass="header-label"/>
+    </HBox>
+
+    <!-- Transactions List -->
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                VBox.vgrow="ALWAYS"
+                style="-fx-background: transparent; -fx-background-color: transparent;">
+        <VBox fx:id="transactionsContainer" spacing="10">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="5"/>
+            </padding>
+        </VBox>
+    </ScrollPane>
+
+</VBox>

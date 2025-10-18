@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:id="mainContainer"
+            fx:controller="com.birdsenger.controllers.MainController"
+            stylesheets="@../css/main.css">
+
+    <!-- Left Sidebar -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="200" spacing="0">
+            <!-- Logo Section -->
+            <VBox styleClass="sidebar-header" spacing="10" alignment="CENTER">
+                <padding>
+                    <Insets top="30" bottom="20"/>
+                </padding>
+                <HBox spacing="10" alignment="CENTER">
+                    <Circle radius="8" styleClass="logo-dot"/>
+                    <Label text="BirdSenger" styleClass="sidebar-logo"/>
+                </HBox>
+            </VBox>
+
+            <!-- Menu Items -->
+            <VBox styleClass="sidebar-menu" spacing="5" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="20" right="15" left="15"/>
+                </padding>
+
+                <Button text="🏠  Dashboard" styleClass="menu-item" onAction="#handleDashboard" maxWidth="Infinity"/>
+                <Button text="💬  Messages" styleClass="menu-item" onAction="#handleMessages" maxWidth="Infinity"/>
+                <Button text="🏦  Bank" styleClass="menu-item" onAction="#handleBank" maxWidth="Infinity"/>
+                <Button text="💳  Transactions" styleClass="menu-item" onAction="#handleTransactions" maxWidth="Infinity"/>
+                <Button text="🍕  Restaurants" styleClass="menu-item-disabled" onAction="#handleRestaurants" maxWidth="Infinity"/>
+                <Button text="⚡  Utilities" styleClass="menu-item-disabled" onAction="#handleUtilities" maxWidth="Infinity"/>
+                <Button text="⚙️  Settings" styleClass="menu-item" onAction="#handleSettings" maxWidth="Infinity"/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <!-- Logout Button -->
+                <Button text="🚪  Logout" styleClass="menu-item-logout" onAction="#handleLogout" maxWidth="Infinity">
+                    <VBox.margin>
+                        <Insets bottom="20"/>
+                    </VBox.margin>
+                </Button>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <VBox styleClass="main-content">
+            <!-- Top Bar -->
+            <HBox styleClass="top-bar" alignment="CENTER_RIGHT" spacing="15">
+                <padding>
+                    <Insets top="15" right="30" bottom="15" left="30"/>
+                </padding>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Notification Icon -->
+                <Label text="🔔" styleClass="notification-icon"/>
+
+                <!-- User Profile -->
+                <HBox spacing="10" alignment="CENTER">
+                    <Circle radius="20" styleClass="user-avatar"/>
+                    <VBox spacing="2" alignment="CENTER_LEFT">
+                        <Label fx:id="usernameLabel" text="Fariba Tanzim" styleClass="user-name"/>
+                        <Label text="fariba.tanzim" styleClass="user-username"/>
+                    </VBox>
+                </HBox>
+            </HBox>
+
+            <!-- Content Area -->
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS" styleClass="content-area">
+                <!-- Views will be loaded here dynamically -->
+            </StackPane>
+        </VBox>
+    </center>
+
+</BorderPane>

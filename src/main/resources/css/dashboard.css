@@ -1,0 +1,65 @@
+/* Dashboard Styles */
+
+.welcome-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+.date-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6B7280;
+}
+
+.dashboard-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-min-height: 180px;
+}
+
+.dashboard-card-disabled {
+    -fx-background-color: #F3F4F6;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);
+    -fx-min-height: 180px;
+    -fx-opacity: 0.6;
+}
+
+.card-icon {
+    -fx-font-size: 24px;
+}
+
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #1F2937;
+}
+
+.card-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6B7280;
+}
+
+.card-button {
+    -fx-background-color: #EC6D87;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.card-button:hover {
+    -fx-background-color: #D1577A;
+}
+
+.card-button-disabled {
+    -fx-background-color: #E5E7EB;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #9CA3AF;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 10 20;
+}

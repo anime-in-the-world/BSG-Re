@@ -1,0 +1,71 @@
+/* Transactions View Styles */
+
+.page-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+.page-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6B7280;
+}
+
+.filter-button {
+    -fx-background-color: #F3F4F6;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-padding: 10 25;
+    -fx-cursor: hand;
+}
+
+.filter-button:hover {
+    -fx-background-color: #E5E7EB;
+}
+
+.filter-button-active {
+    -fx-background-color: #EC6D87;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-padding: 10 25;
+    -fx-cursor: hand;
+}
+
+.table-header {
+    -fx-background-color: #F9FAFB;
+    -fx-background-radius: 8px;
+}
+
+.header-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #6B7280;
+}
+
+.transaction-row {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);
+}
+
+.transaction-row:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.view-details-button {
+    -fx-background-color: #F3F4F6;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 13px;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+}
+
+.view-details-button:hover {
+    -fx-background-color: #E5E7EB;
+    -fx-text-fill: #1F2937;
+}

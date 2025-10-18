@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.birdsenger.controllers.DashboardController"
+      stylesheets="@../css/dashboard.css" spacing="20">
+
+    <!-- Welcome Header -->
+    <VBox spacing="5">
+        <Label fx:id="welcomeLabel" text="Welcome back, Fariba!" styleClass="welcome-title"/>
+        <Label fx:id="dateLabel" text="Today: Sunday, Oct 27, 2025" styleClass="date-label"/>
+    </VBox>
+
+    <!-- Dashboard Cards Grid -->
+    <GridPane hgap="20" vgap="20">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="33.33"/>
+            <ColumnConstraints percentWidth="33.33"/>
+            <ColumnConstraints percentWidth="33.33"/>
+        </columnConstraints>
+
+        <!-- Messages Card -->
+        <VBox styleClass="dashboard-card" spacing="15" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="💬" styleClass="card-icon"/>
+                <Label text="Messages" styleClass="card-title"/>
+            </HBox>
+            <Label fx:id="unreadMessagesLabel" text="5 unread messages" styleClass="card-value"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Go to Messages" styleClass="card-button" maxWidth="Infinity"/>
+        </VBox>
+
+        <!-- Bank Card -->
+        <VBox styleClass="dashboard-card" spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="🏦" styleClass="card-icon"/>
+                <Label text="Bank" styleClass="card-title"/>
+            </HBox>
+            <Label fx:id="balanceLabel" text="Balance: $1,430" styleClass="card-value"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="View Bank" styleClass="card-button" maxWidth="Infinity"/>
+        </VBox>
+
+        <!-- Transactions Card -->
+        <VBox styleClass="dashboard-card" spacing="15" GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="💳" styleClass="card-icon"/>
+                <Label text="Transactions" styleClass="card-title"/>
+            </HBox>
+            <Label fx:id="lastTransactionLabel" text="Aisha Sent 50$" styleClass="card-value"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="View Transactions" styleClass="card-button" maxWidth="Infinity"/>
+        </VBox>
+
+        <!-- Settings Card -->
+        <VBox styleClass="dashboard-card" spacing="15" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="⚙️" styleClass="card-icon"/>
+                <Label text="Settings" styleClass="card-title"/>
+            </HBox>
+            <Label text="Profile, Privacy" styleClass="card-value"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Go to Settings" styleClass="card-button" maxWidth="Infinity"/>
+        </VBox>
+
+        <!-- Restaurants Card (Disabled) -->
+        <VBox styleClass="dashboard-card-disabled" spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="🍕" styleClass="card-icon"/>
+                <Label text="Restaurants" styleClass="card-title"/>
+            </HBox>
+            <Label text="Last Order: Pizza Hut" styleClass="card-value"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="View Restaurants" styleClass="card-button-disabled" maxWidth="Infinity" disable="true"/>
+        </VBox>
+
+        <!-- Utilities Card (Disabled) -->
+        <VBox styleClass="dashboard-card-disabled" spacing="15" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="⚡" styleClass="card-icon"/>
+                <Label text="Utilities" styleClass="card-title"/>
+            </HBox>
+            <Label text="1 bill due" styleClass="card-value"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="View Utilities" styleClass="card-button-disabled" maxWidth="Infinity" disable="true"/>
+        </VBox>
+    </GridPane>
+
+</VBox>

@@ -1,0 +1,110 @@
+
+/* Main Application Styles */
+
+.sidebar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 0 1 0 0;
+}
+
+.sidebar-header {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 0 0 1 0;
+}
+
+.sidebar-logo {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+.logo-dot {
+    -fx-fill: #EC6D87;
+}
+
+.sidebar-menu {
+    -fx-background-color: #FFFFFF;
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 20;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.menu-item:hover {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #1F2937;
+}
+
+.menu-item:focused {
+    -fx-background-color: #FEE2E2;
+    -fx-text-fill: #EC6D87;
+}
+
+.menu-item-disabled {
+    -fx-background-color: transparent;
+    -fx-text-fill: #D1D5DB;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 20;
+    -fx-background-radius: 8px;
+    -fx-cursor: default;
+    -fx-opacity: 0.5;
+}
+
+.menu-item-logout {
+    -fx-background-color: transparent;
+    -fx-text-fill: #EF4444;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 20;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.menu-item-logout:hover {
+    -fx-background-color: #FEE2E2;
+}
+
+.main-content {
+    -fx-background-color: #F9FAFB;
+}
+
+.top-bar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 0 0 1 0;
+}
+
+.notification-icon {
+    -fx-font-size: 24px;
+    -fx-cursor: hand;
+}
+
+.user-avatar {
+    -fx-fill: #EC6D87;
+}
+
+.user-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+.user-username {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6B7280;
+}
+
+.content-area {
+    -fx-background-color: #F9FAFB;
+    -fx-padding: 30;
+}

@@ -23,14 +23,40 @@ public class AuthService {
             if (rs.next()) {
                 String storedHash = rs.getString("password_hash");
 
-                if (BCrypt.checkpw(password, storedHash)) {
+                System.out.println("🔍 Login attempt for: " + usernameOrEmail);
+                System.out.println("🔍 Password entered: " + password);
+                System.out.println("🔍 Stored hash: " + storedHash);
+
+                // Check if it's plain text (for test user)
+                boolean isMatch = false;
+
+                if (storedHash.startsWith("$2a$") || storedHash.startsWith("$2b$") || storedHash.startsWith("$2y$")) {
+                    // BCrypt hash
+                    try {
+                        isMatch = BCrypt.checkpw(password, storedHash);
+                        System.out.println("🔍 BCrypt check: " + isMatch);
+                    } catch (Exception e) {
+                        System.out.println("❌ BCrypt error: " + e.getMessage());
+                        // Try plain text comparison
+                        isMatch = password.equals(storedHash);
+                    }
+                } else {
+                    // Plain text password (test user)
+                    isMatch = password.equals(storedHash);
+                    System.out.println("🔍 Plain text check: " + isMatch);
+                }
+
+                if (isMatch) {
                     User user = mapResultSetToUser(rs);
                     System.out.println("✅ Login successful: " + user.getUsername());
                     return user;
+                } else {
+                    System.out.println("❌ Password mismatch");
                 }
+            } else {
+                System.out.println("❌ User not found: " + usernameOrEmail);
             }
 
-            System.out.println("❌ Login failed: Invalid credentials");
             return null;
 
         } catch (SQLException e) {
@@ -44,7 +70,6 @@ public class AuthService {
                           String username, String password, String securityQuestion,
                           String securityAnswer) {
 
-        // Check if username or email already exists
         if (userExists(username, email)) {
             System.out.println("❌ Signup failed: Username or email already exists");
             return false;
@@ -56,8 +81,8 @@ public class AuthService {
         try (Connection conn = DatabaseManager.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-            double initialBalance = 500 + new Random().nextDouble() * 4500; // Random between 500-5000
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
+            double initialBalance = 500 + new Random().nextDouble() * 4500;
 
             stmt.setString(1, firstName);
             stmt.setString(2, lastName);
@@ -72,8 +97,6 @@ public class AuthService {
 
             if (rows > 0) {
                 System.out.println("✅ Account created: " + username);
-
-                // Create default bank account
                 createDefaultBankAccount(username, initialBalance);
                 return true;
             }
@@ -102,7 +125,7 @@ public class AuthService {
 
                 if (storedAnswer.equalsIgnoreCase(securityAnswer.trim())) {
                     int userId = rs.getInt("id");
-                    String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+                    String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(10));
 
                     PreparedStatement updateStmt = conn.prepareStatement(updateSql);
                     updateStmt.setString(1, hashedPassword);

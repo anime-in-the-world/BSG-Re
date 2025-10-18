@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.birdsenger.controllers.MessagesController"
+      stylesheets="@../css/messages.css" spacing="0">
+
+    <!-- Header Row -->
+    <HBox styleClass="messages-header" spacing="15" alignment="CENTER_LEFT">
+        <padding>
+            <Insets top="15" right="20" bottom="15" left="20"/>
+        </padding>
+
+        <Label text="Friends" styleClass="header-label"/>
+        <Button fx:id="onlineButton" text="Online" styleClass="header-button" onAction="#handleOnline"/>
+        <Button fx:id="allButton" text="All" styleClass="header-button" onAction="#handleAll"/>
+        <Button fx:id="addFriendsButton" text="Add Friends" styleClass="header-button-primary" onAction="#handleAddFriends"/>
+        <Button fx:id="pendingButton" text="Pending" styleClass="header-button" onAction="#handlePending"/>
+
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Button text="🔔" styleClass="notification-button"/>
+    </HBox>
+
+    <!-- Main Content: Chat List + Chat Area -->
+    <HBox VBox.vgrow="ALWAYS">
+        <!-- Left: Chat List -->
+        <VBox styleClass="chat-list-container" prefWidth="320">
+            <!-- Search/New Chat Header -->
+            <HBox alignment="CENTER" spacing="10">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+
+                <Label text="Chats" styleClass="section-title"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="+" styleClass="add-chat-button" onAction="#handleCreateGroup"/>
+            </HBox>
+
+            <!-- Chat List -->
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                        VBox.vgrow="ALWAYS"
+                        style="-fx-background: white; -fx-background-color: white;">
+                <VBox fx:id="chatList" spacing="5">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10"/>
+                    </padding>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+
+        <!-- Right: Content Area (Chat or Info Views) -->
+        <StackPane fx:id="contentPane" HBox.hgrow="ALWAYS" styleClass="content-pane">
+            <!-- Default view -->
+            <VBox alignment="CENTER" spacing="15">
+                <Label text="💬" style="-fx-font-size: 48px;"/>
+                <Label text="Select a chat to start messaging" styleClass="empty-state-text"/>
+            </VBox>
+        </StackPane>
+    </HBox>
+
+</VBox>

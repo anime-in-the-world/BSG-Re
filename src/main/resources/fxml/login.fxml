@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.birdsenger.controllers.LoginController"
+      stylesheets="@../css/auth.css">
+
+    <!-- Left Side - Form -->
+    <VBox styleClass="auth-left" prefWidth="650" spacing="20" alignment="TOP_LEFT">
+        <padding>
+            <Insets top="60" right="80" bottom="60" left="80"/>
+        </padding>
+
+        <!-- Logo -->
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <VBox styleClass="logo-circle" prefWidth="40" prefHeight="40"/>
+            <Label text="BirdSenger app." styleClass="logo-text"/>
+        </HBox>
+
+        <Region VBox.vgrow="SOMETIMES"/>
+
+        <!-- Sign In Title -->
+        <VBox spacing="12">
+            <Text text="Sign In" styleClass="auth-title"/>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Don't have an account?" styleClass="auth-subtitle"/>
+                <Hyperlink fx:id="createAccountLink" text="Create Account"
+                           styleClass="auth-link" onAction="#handleCreateAccount"/>
+            </HBox>
+        </VBox>
+
+        <!-- Form Fields -->
+        <VBox spacing="20" styleClass="form-container">
+            <!-- Username Field -->
+            <VBox spacing="8">
+                <Label text="Email or Username" styleClass="field-label"/>
+                <TextField fx:id="usernameField" promptText="fariba.tanzim@proton.me"
+                           styleClass="auth-field"/>
+            </VBox>
+
+            <!-- Password Field -->
+            <VBox spacing="8">
+                <Label text="Password" styleClass="field-label"/>
+                <PasswordField fx:id="passwordField" promptText="••••••••••••••••"
+                               styleClass="auth-field"/>
+            </VBox>
+
+            <!-- Error Label -->
+            <Label fx:id="errorLabel" text="Incorrect password"
+                   styleClass="error-label" managed="false" visible="false"/>
+
+            <!-- Forgot Password Link -->
+            <HBox alignment="CENTER_RIGHT">
+                <Hyperlink fx:id="forgotPasswordLink" text="forgot password?"
+                           styleClass="forgot-link" onAction="#handleForgotPassword"/>
+            </HBox>
+
+            <!-- Login Button -->
+            <Button fx:id="loginButton" text="Log in" styleClass="auth-button"
+                    onAction="#handleLogin" maxWidth="Infinity"/>
+        </VBox>
+
+        <Region VBox.vgrow="SOMETIMES"/>
+    </VBox>
+
+    <!-- Right Side - Background Image -->
+    <StackPane styleClass="auth-right" HBox.hgrow="ALWAYS"/>
+
+</HBox>

@@ -102,3 +102,28 @@ task runSocketServer(type: JavaExec) {
         languageVersion = JavaLanguageVersion.of(25)
     }
 }
+
+
+// Task to build standalone socket server JAR
+task buildSocketServerJar(type: Jar) {
+    archiveBaseName = 'birdsenger-socket-server'
+    archiveVersion = '1.0'
+
+    manifest {
+        attributes 'Main-Class': 'com.birdsenger.server.SocketServer'
+    }
+
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    with jar
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    // Only include server classes and dependencies (no JavaFX)
+    exclude 'javafx/**'
+    exclude 'com/sun/javafx/**'
+}

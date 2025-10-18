@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.birdsenger.controllers.SignupController"
+      stylesheets="@../css/auth.css">
+
+    <!-- Left Side - Form with ScrollPane -->
+    <ScrollPane prefWidth="650" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                style="-fx-background: #FFFFFF; -fx-background-color: #FFFFFF;">
+        <VBox styleClass="auth-left" spacing="15" alignment="TOP_LEFT">
+            <padding>
+                <Insets top="30" right="80" bottom="30" left="80"/>
+            </padding>
+
+            <!-- Logo -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <VBox styleClass="logo-circle" prefWidth="40" prefHeight="40"/>
+                <Label text="BirdSenger app." styleClass="logo-text"/>
+            </HBox>
+
+            <Region prefHeight="5"/>
+
+            <!-- Title -->
+            <VBox spacing="12">
+                <Label text="START FOR FREE" styleClass="start-free"/>
+                <Text text="Create new account" styleClass="auth-title"/>
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="Already A Member?" styleClass="auth-subtitle"/>
+                    <Hyperlink fx:id="loginLink" text="Log In"
+                               styleClass="auth-link" onAction="#handleLogin"/>
+                </HBox>
+            </VBox>
+
+            <!-- Form Fields -->
+            <VBox spacing="12" styleClass="form-container">
+                <!-- Name Fields -->
+                <HBox spacing="15">
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="First name" styleClass="field-label"/>
+                        <TextField fx:id="firstNameField" promptText="Fariba"
+                                   styleClass="auth-field"/>
+                    </VBox>
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="Last name" styleClass="field-label"/>
+                        <TextField fx:id="lastNameField" promptText="Tanzim"
+                                   styleClass="auth-field"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Email -->
+                <VBox spacing="6">
+                    <Label text="Email" styleClass="field-label"/>
+                    <TextField fx:id="emailField" promptText="fariba.tanzim@proton.me"
+                               styleClass="auth-field"/>
+                </VBox>
+
+                <!-- Username -->
+                <VBox spacing="6">
+                    <Label text="Username" styleClass="field-label"/>
+                    <TextField fx:id="usernameField" promptText="fariba.tanzim"
+                               styleClass="auth-field"/>
+                </VBox>
+
+                <!-- Password Fields -->
+                <VBox spacing="6">
+                    <Label text="Password" styleClass="field-label"/>
+                    <PasswordField fx:id="passwordField" promptText="••••••••••••••••"
+                                   styleClass="auth-field"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Confirm Password" styleClass="field-label"/>
+                    <PasswordField fx:id="confirmPasswordField" promptText="••••••••••••••••"
+                                   styleClass="auth-field"/>
+                </VBox>
+
+                <!-- Security Question -->
+                <VBox spacing="6">
+                    <Label text="Security Question" styleClass="field-label"/>
+                    <ComboBox fx:id="securityQuestionCombo" styleClass="auth-field"
+                              maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- Security Answer -->
+                <VBox spacing="6">
+                    <Label text="Answer" styleClass="field-label"/>
+                    <TextField fx:id="securityAnswerField" promptText="Your answer"
+                               styleClass="auth-field"/>
+                </VBox>
+
+                <!-- Message Label -->
+                <Label fx:id="messageLabel" text=""
+                       styleClass="success-label" managed="false" visible="false"/>
+
+                <!-- Create Account Button -->
+                <Button fx:id="createAccountButton" text="Create account"
+                        styleClass="auth-button" onAction="#handleCreateAccount"
+                        maxWidth="Infinity">
+                    <VBox.margin>
+                        <Insets top="5" bottom="10"/>
+                    </VBox.margin>
+                </Button>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+
+    <!-- Right Side - Background Image -->
+    <StackPane styleClass="auth-right" HBox.hgrow="ALWAYS"/>
+
+</HBox>

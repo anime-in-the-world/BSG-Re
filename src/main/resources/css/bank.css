@@ -1,0 +1,63 @@
+/* Bank View Styles */
+
+.page-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+.page-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6B7280;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #1F2937;
+}
+
+.refresh-button {
+    -fx-background-color: #F3F4F6;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #1F2937;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.refresh-button:hover {
+    -fx-background-color: #E5E7EB;
+}
+
+.total-balance-card {
+    -fx-background-color: linear-gradient(to right, #EC6D87, #D1577A);
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(236, 109, 135, 0.3), 15, 0, 0, 5);
+}
+
+.balance-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+}
+
+.balance-amount {
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.bank-account-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12px;
+    -fx-padding: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}

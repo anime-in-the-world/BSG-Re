@@ -1,5 +1,6 @@
 package com.birdsenger.controllers;
 
+import com.birdsenger.BirdSengerApp;
 import com.birdsenger.models.User;
 import com.birdsenger.services.AuthService;
 import com.birdsenger.utils.SessionManager;
@@ -49,42 +50,29 @@ public class LoginController {
 
     @FXML
     private void handleCreateAccount() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/signup.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("BirdSenger - Create Account");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        switchScene("/fxml/signup.fxml", "BirdSenger - Create Account");
     }
 
     @FXML
     private void handleForgotPassword() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/forgot-password.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("BirdSenger - Reset Password");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        switchScene("/fxml/forgot-password.fxml", "BirdSenger - Reset Password");
     }
 
     private void loadMainView() {
+        switchScene("/fxml/main.fxml", "BirdSenger");
+    }
+
+    private void switchScene(String fxmlPath, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root, 1280, 800));
-            stage.setTitle("BirdSenger");
-            stage.setMaximized(true);
+            Scene scene = new Scene(root, BirdSengerApp.WINDOW_WIDTH, BirdSengerApp.WINDOW_HEIGHT);
+            stage.setScene(scene);
+            stage.setTitle(title);
         } catch (Exception e) {
+            System.err.println("❌ Failed to load: " + fxmlPath);
             e.printStackTrace();
         }
     }

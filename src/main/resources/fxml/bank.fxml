@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.birdsenger.controllers.BankController"
+      stylesheets="@../css/bank.css" spacing="25">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label text="Bank Accounts" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="🔄 Refresh" styleClass="refresh-button" onAction="#handleRefresh"/>
+    </HBox>
+
+    <Label text="Overview of your connected accounts and balances" styleClass="page-subtitle"/>
+
+    <!-- Total Balance Card -->
+    <VBox styleClass="total-balance-card" spacing="10">
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
+        <Label text="Total Balance" styleClass="balance-label"/>
+        <Label fx:id="totalBalanceLabel" text="\$0.00" styleClass="balance-amount"/>
+    </VBox>
+
+    <!-- Bank Accounts List -->
+    <Label text="Your Bank Accounts" styleClass="section-title"/>
+
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                style="-fx-background: transparent; -fx-background-color: transparent;">
+        <VBox fx:id="accountsContainer" spacing="20">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="5"/>
+            </padding>
+        </VBox>
+    </ScrollPane>
+
+</VBox>

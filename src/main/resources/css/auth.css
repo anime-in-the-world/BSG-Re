@@ -1,0 +1,159 @@
+/* Auth Pages Styling - Matches Wireframe Design */
+
+.auth-left {
+    -fx-background-color: #FFFFFF;
+}
+
+.auth-right {
+    -fx-background-image: url('../images/auth-bg.jpg');
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+/* Logo */
+.logo-circle {
+    -fx-background-color: #EC6D87;
+    -fx-background-radius: 50%;
+}
+
+.logo-text {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+/* Titles */
+.auth-title {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-fill: #1F2937;
+}
+
+.auth-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #9CA3AF;
+}
+
+.auth-link {
+    -fx-font-size: 14px;
+    -fx-text-fill: #EC6D87;
+    -fx-underline: false;
+}
+
+.auth-link:hover {
+    -fx-text-fill: #D1577A;
+}
+
+/* Form */
+.form-container {
+    -fx-padding: 20 0 0 0;
+}
+
+.field-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6B7280;
+}
+
+.auth-field {
+    -fx-background-color: #F3F4F6;
+    -fx-background-radius: 8px;
+    -fx-padding: 15px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1F2937;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8px;
+}
+
+.auth-field:focused {
+    -fx-border-color: #EC6D87;
+    -fx-border-width: 2px;
+    -fx-background-color: #FFFFFF;
+}
+
+/* Error Label */
+.error-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #EF4444;
+    -fx-padding: 0 0 0 0;
+}
+
+/* Success Label */
+.success-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #10B981;
+    -fx-padding: 0 0 0 0;
+}
+
+/* Forgot Password Link */
+.forgot-link {
+    -fx-font-size: 13px;
+    -fx-text-fill: #9CA3AF;
+    -fx-underline: false;
+}
+
+.forgot-link:hover {
+    -fx-text-fill: #6B7280;
+}
+
+/* Auth Button */
+.auth-button {
+    -fx-background-color: #EC6D87;
+    -fx-background-radius: 25px;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 15px 40px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.auth-button:hover {
+    -fx-background-color: #D1577A;
+}
+
+.auth-button:pressed {
+    -fx-background-color: #B94968;
+}
+
+/* Small Text */
+.start-free {
+    -fx-font-size: 12px;
+    -fx-text-fill: #9CA3AF;
+    -fx-font-weight: 600;
+    -fx-letter-spacing: 1px;
+}
+
+/* Already member text */
+.member-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #9CA3AF;
+}
+
+.member-link {
+    -fx-font-size: 14px;
+    -fx-text-fill: #EC6D87;
+    -fx-underline: false;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #FFFFFF;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #E5E7EB;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #D1D5DB;
+}
