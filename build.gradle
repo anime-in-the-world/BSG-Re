@@ -1,0 +1,104 @@
+// Plugin-free, portable, configuration-cache friendly.
+// Usage:
+//   ./gradlew --refresh-dependencies clean run --configuration-cache
+//   ./gradlew run --configuration-cache
+
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+// ---- JavaFX version / platform detection ----
+def javafxVersion = '25'
+
+def os = System.getProperty('os.name').toLowerCase()
+def javafxPlatform =
+        os.contains('win')   ? 'win'   :
+                os.contains('mac')   ? 'mac'   :
+                        os.contains('linux') ? 'linux' :
+                                { throw new GradleException("Unsupported OS: " + os) }()
+
+// JavaFX modules
+def javafxModules = ['javafx-base', 'javafx-graphics', 'javafx-controls', 'javafx-fxml']
+
+// Convert to --add-modules format
+def javafxAddModules = javafxModules.collect { 'javafx.' + (it - 'javafx-') }.join(',')
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(25) }
+}
+
+// Dedicated configuration holding platform-specific JavaFX artifacts
+configurations {
+    javafx
+    implementation.extendsFrom(javafx)
+}
+
+dependencies {
+    // JavaFX platform-specific artifacts
+    javafxModules.each { m ->
+        javafx "org.openjfx:${m}:${javafxVersion}:${javafxPlatform}"
+    }
+
+    // PostgreSQL Driver
+    implementation 'org.postgresql:postgresql:42.7.3'
+
+    // HikariCP Connection Pool
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+
+    // BCrypt for password hashing
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+    // Socket.IO Client for real-time messaging
+    implementation 'io.socket:socket.io-client:2.1.0'
+
+    // JSON Processing
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Socket.IO Server
+    implementation 'com.corundumstudio.socketio:netty-socketio:2.0.6'
+
+    // Logging
+    implementation 'org.slf4j:slf4j-simple:2.0.12'
+}
+
+application {
+    mainClass.set('com.birdsenger.BirdSengerApp')
+
+    applicationDefaultJvmArgs = [
+            '--sun-misc-unsafe-memory-access=allow',
+            '--enable-native-access=javafx.graphics'
+    ]
+}
+
+// Feed JavaFX to the compiler via --module-path
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += [
+            '--module-path', configurations.javafx.asPath,
+            '--add-modules', javafxAddModules
+    ]
+    options.encoding = 'UTF-8'
+}
+
+// Ensure :run uses JDK 25 toolchain and same module-path
+tasks.named('run', JavaExec).configure {
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    jvmArgs += [
+            '--module-path', configurations.javafx.asPath,
+            '--add-modules', javafxAddModules
+    ]
+}
+
+// Task to run Socket.IO server locally
+task runSocketServer(type: JavaExec) {
+    mainClass = 'com.birdsenger.server.SocketServer'
+    classpath = sourceSets.main.runtimeClasspath
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}

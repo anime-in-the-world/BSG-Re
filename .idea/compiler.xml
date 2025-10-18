@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="25" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="--module-path $USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-fxml/25/88f86d5e0de073d5a5718c0d200a969186f4dfdf/javafx-fxml-25-linux.jar:$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-controls/25/d2a1bb11a5fb507ed5da975eee949d8f78a75d9a/javafx-controls-25-linux.jar:$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-controls/25/3baa78c90ec73f3c2e3c4f3a09ff287431a680f0/javafx-controls-25.jar:$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/25/dd1b0cfb56cec5fb3434cbdc030c02b1c8e773b2/javafx-graphics-25-linux.jar:$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/25/aa61e4a0b057b5e65f576f7c224ebd0f3142cd37/javafx-graphics-25.jar:$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-base/25/1f52994bfed549d07ef52a5fa4603db17ea44fbe/javafx-base-25-linux.jar:$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-base/25/ea9353f332c3461a58bae6bbb2a2aa1469fe3d71/javafx-base-25.jar --add-modules javafx.base,javafx.graphics,javafx.controls,javafx.fxml" />
+  </component>
+</project>
