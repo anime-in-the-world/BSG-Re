@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.*?>
 
-<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.birdsenger.controllers.LoginController"
-      stylesheets="@../css/auth.css">
+<HBox stylesheets="@../css/auth.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.birdsenger.controllers.LoginController">
 
     <!-- Left Side - Form -->
-    <VBox styleClass="auth-left" prefWidth="650" spacing="20" alignment="TOP_LEFT">
+    <VBox alignment="TOP_LEFT" prefWidth="650" spacing="20" styleClass="auth-left">
         <padding>
-            <Insets top="60" right="80" bottom="60" left="80"/>
+            <Insets bottom="60" left="80" right="80" top="60" />
         </padding>
 
         <!-- Logo -->
-        <HBox spacing="15" alignment="CENTER_LEFT">
-            <VBox styleClass="logo-circle" prefWidth="40" prefHeight="40"/>
-            <Label text="BirdSenger app." styleClass="logo-text"/>
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <VBox prefHeight="40" prefWidth="40" styleClass="logo-circle" />
+            <Label styleClass="logo-text" text="BirdSenger app." />
         </HBox>
 
-        <Region VBox.vgrow="SOMETIMES"/>
+        <Region VBox.vgrow="SOMETIMES" />
 
         <!-- Sign In Title -->
         <VBox spacing="12">
-            <Text text="Sign In" styleClass="auth-title"/>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label text="Don't have an account?" styleClass="auth-subtitle"/>
-                <Hyperlink fx:id="createAccountLink" text="Create Account"
-                           styleClass="auth-link" onAction="#handleCreateAccount"/>
+            <Text styleClass="auth-title" text="Sign In" />
+            <HBox alignment="CENTER_LEFT" spacing="5">
+                <Label styleClass="auth-subtitle" text="Don't have an account?" />
+                <Hyperlink fx:id="createAccountLink" onAction="#handleCreateAccount" styleClass="auth-link" text="Create Account" />
             </HBox>
         </VBox>
 
@@ -37,37 +34,32 @@
         <VBox spacing="20" styleClass="form-container">
             <!-- Username Field -->
             <VBox spacing="8">
-                <Label text="Email or Username" styleClass="field-label"/>
-                <TextField fx:id="usernameField" promptText="fariba.tanzim@proton.me"
-                           styleClass="auth-field"/>
+                <Label styleClass="field-label" text="Email or Username" />
+                <TextField fx:id="usernameField" promptText="Enter your email or username" styleClass="auth-field" />
             </VBox>
 
             <!-- Password Field -->
             <VBox spacing="8">
-                <Label text="Password" styleClass="field-label"/>
-                <PasswordField fx:id="passwordField" promptText="••••••••••••••••"
-                               styleClass="auth-field"/>
+                <Label styleClass="field-label" text="Password" />
+                <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="auth-field" />
             </VBox>
 
             <!-- Error Label -->
-            <Label fx:id="errorLabel" text="Incorrect password"
-                   styleClass="error-label" managed="false" visible="false"/>
+            <Label fx:id="errorLabel" managed="false" styleClass="error-label" text="Incorrect password" visible="false" />
 
             <!-- Forgot Password Link -->
             <HBox alignment="CENTER_RIGHT">
-                <Hyperlink fx:id="forgotPasswordLink" text="forgot password?"
-                           styleClass="forgot-link" onAction="#handleForgotPassword"/>
+                <Hyperlink fx:id="forgotPasswordLink" onAction="#handleForgotPassword" styleClass="forgot-link" text="forgot password?" />
             </HBox>
 
             <!-- Login Button -->
-            <Button fx:id="loginButton" text="Log in" styleClass="auth-button"
-                    onAction="#handleLogin" maxWidth="Infinity"/>
+            <Button fx:id="loginButton" maxWidth="Infinity" onAction="#handleLogin" styleClass="auth-button" text="Log in" />
         </VBox>
 
-        <Region VBox.vgrow="SOMETIMES"/>
+        <Region VBox.vgrow="SOMETIMES" />
     </VBox>
 
     <!-- Right Side - Background Image -->
-    <StackPane styleClass="auth-right" HBox.hgrow="ALWAYS"/>
+    <StackPane styleClass="auth-right" HBox.hgrow="ALWAYS" />
 
 </HBox>
