@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Circle?>
 
 <HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.birdsenger.controllers.SettingsController"
@@ -22,53 +23,56 @@
                 <Insets top="20"/>
             </VBox.margin>
 
-            <Button text="Profile" styleClass="settings-menu-item-active"/>
-            <Button text="Privacy &amp; Security" styleClass="settings-menu-item-disabled" disable="true"/>
-            <Button text="Chats &amp; Notification" styleClass="settings-menu-item-disabled" disable="true"/>
-            <Button text="Payment &amp; Bank" styleClass="settings-menu-item-disabled" disable="true"/>
-            <Button text="App Preferences" styleClass="settings-menu-item-disabled" disable="true"/>
+            <Button fx:id="profileButton" text="Profile" styleClass="settings-menu-item-active"/>
+            <Button fx:id="privacyButton" text="Privacy &amp; Security" styleClass="settings-menu-item"/>
+            <Button fx:id="chatsButton" text="Chats &amp; Notification" styleClass="settings-menu-item"/>
+            <Button fx:id="paymentButton" text="Payment &amp; Bank" styleClass="settings-menu-item"/>
+            <Button fx:id="appPrefButton" text="App Preferences" styleClass="settings-menu-item"/>
         </VBox>
     </VBox>
 
     <!-- Right Content -->
-    <VBox styleClass="settings-content" HBox.hgrow="ALWAYS" spacing="25">
-        <padding>
-            <Insets top="30" right="40" bottom="30" left="40"/>
-        </padding>
+    <StackPane fx:id="settingsContentPane" HBox.hgrow="ALWAYS">
+        <VBox styleClass="settings-content" spacing="25">
+            <padding>
+                <Insets top="30" right="40" bottom="30" left="40"/>
+            </padding>
 
-        <Label text="Profile" styleClass="content-title"/>
+            <Label text="Profile" styleClass="content-title"/>
 
-        <!-- Profile Picture Section -->
-        <VBox spacing="15" alignment="CENTER">
-            <ImageView fx:id="profileImageView" fitWidth="120" fitHeight="120" preserveRatio="true">
-                <image>
-                    <javafx.scene.image.Image url="@../images/default-avatar.png"/>
-                </image>
-            </ImageView>
+            <!-- Profile Picture Section -->
+            <VBox spacing="15" alignment="CENTER">
+                <StackPane>
+                    <!-- Default pink circle background -->
+                    <Circle radius="60" fill="#EC6D87"/>
 
-            <Button text="Upload" styleClass="upload-button" onAction="#handleUploadPicture"/>
+                    <!-- Profile image on top -->
+                    <ImageView fx:id="profileImageView" fitWidth="120" fitHeight="120" preserveRatio="true"/>
+                </StackPane>
+
+                <Button text="Upload" styleClass="upload-button" onAction="#handleUploadPicture"/>
+            </VBox>
+
+            <!-- Profile Form -->
+            <VBox spacing="15" styleClass="profile-form">
+                <VBox spacing="8">
+                    <Label text="Name" styleClass="form-label"/>
+                    <TextField fx:id="nameField" styleClass="form-field" editable="false"/>
+                </VBox>
+
+                <VBox spacing="8">
+                    <Label text="Username" styleClass="form-label"/>
+                    <TextField fx:id="usernameField" styleClass="form-field" editable="false"/>
+                </VBox>
+
+                <VBox spacing="8">
+                    <Label text="Email" styleClass="form-label"/>
+                    <TextField fx:id="emailField" styleClass="form-field" editable="false"/>
+                </VBox>
+
+                <Label fx:id="messageLabel" styleClass="message-label" managed="false" visible="false"/>
+            </VBox>
         </VBox>
-
-        <!-- Profile Form -->
-        <VBox spacing="15" styleClass="profile-form">
-            <VBox spacing="8">
-                <Label text="Name" styleClass="form-label"/>
-                <TextField fx:id="nameField" styleClass="form-field" editable="false"/>
-            </VBox>
-
-            <VBox spacing="8">
-                <Label text="Username" styleClass="form-label"/>
-                <TextField fx:id="usernameField" styleClass="form-field" editable="false"/>
-            </VBox>
-
-            <VBox spacing="8">
-                <Label text="Email" styleClass="form-label"/>
-                <TextField fx:id="emailField" styleClass="form-field" editable="false"/>
-            </VBox>
-
-            <Label fx:id="messageLabel" styleClass="message-label" managed="false" visible="false"/>
-        </VBox>
-
-    </VBox>
+    </StackPane>
 
 </HBox>

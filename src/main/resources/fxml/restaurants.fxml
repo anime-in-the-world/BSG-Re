@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      stylesheets="@../css/restaurants.css"
+      spacing="20" style="-fx-background-color: white;">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <Label text="Restaurants" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #1F2937;"/>
+
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <TextField promptText="Search restaurants..."
+                   style="-fx-background-color: #F3F4F6; -fx-background-radius: 10; -fx-padding: 12 20; -fx-font-size: 14px;"
+                   prefWidth="400"/>
+    </HBox>
+
+    <VBox spacing="20" VBox.vgrow="ALWAYS">
+
+        <HBox spacing="20" alignment="CENTER_LEFT"
+              style="-fx-background-color: white; -fx-border-color: #E5E7EB; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 20;">
+
+            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                <Label text="Kyoto Dining" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1F2937;"/>
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="⭐ ⭐ ⭐ ⭐" style="-fx-font-size: 14px;"/>
+                    <Label text="4.7 ★" style="-fx-font-size: 14px; -fx-text-fill: #6B7280;"/>
+                </HBox>
+                <Label text="Gion, Kyoto" style="-fx-font-size: 14px; -fx-text-fill: #9CA3AF;"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox spacing="10">
+                <Button text="View Details"
+                        style="-fx-background-color: #F3F4F6; -fx-text-fill: #1F2937; -fx-background-radius: 8; -fx-padding: 10 20; -fx-font-size: 13px; -fx-cursor: hand;"/>
+                <Button text="Reserve"
+                        style="-fx-background-color: #EC6D87; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10 20; -fx-font-size: 13px; -fx-font-weight: bold; -fx-cursor: hand;"
+                        disable="true"/>
+            </HBox>
+        </HBox>
+
+        <HBox spacing="20" alignment="CENTER_LEFT"
+              style="-fx-background-color: white; -fx-border-color: #E5E7EB; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 20;">
+
+            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                <Label text="Ramen Street Tokyo" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1F2937;"/>
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="⭐ ⭐ ⭐ ⭐" style="-fx-font-size: 14px;"/>
+                    <Label text="4.4 ★" style="-fx-font-size: 14px; -fx-text-fill: #6B7280;"/>
+                </HBox>
+                <Label text="Shinjuku, Tokyo" style="-fx-font-size: 14px; -fx-text-fill: #9CA3AF;"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox spacing="10">
+                <Button text="View Details"
+                        style="-fx-background-color: #F3F4F6; -fx-text-fill: #1F2937; -fx-background-radius: 8; -fx-padding: 10 20; -fx-font-size: 13px; -fx-cursor: hand;"/>
+                <Button text="Reserve"
+                        style="-fx-background-color: #EC6D87; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10 20; -fx-font-size: 13px; -fx-font-weight: bold; -fx-cursor: hand;"
+                        disable="true"/>
+            </HBox>
+        </HBox>
+
+        <HBox spacing="20" alignment="CENTER_LEFT"
+              style="-fx-background-color: white; -fx-border-color: #E5E7EB; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 20;">
+
+            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                <Label text="Sushi Zen" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1F2937;"/>
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="⭐ ⭐ ⭐ ⭐" style="-fx-font-size: 14px;"/>
+                    <Label text="4.8 ★" style="-fx-font-size: 14px; -fx-text-fill: #6B7280;"/>
+                </HBox>
+                <Label text="Kyoto Station" style="-fx-font-size: 14px; -fx-text-fill: #9CA3AF;"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox spacing="10">
+                <Button text="View Details"
+                        style="-fx-background-color: #F3F4F6; -fx-text-fill: #1F2937; -fx-background-radius: 8; -fx-padding: 10 20; -fx-font-size: 13px; -fx-cursor: hand;"/>
+                <Button text="Reserve"
+                        style="-fx-background-color: #EC6D87; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10 20; -fx-font-size: 13px; -fx-font-weight: bold; -fx-cursor: hand;"
+                        disable="true"/>
+            </HBox>
+        </HBox>
+
+    </VBox>
+
+</VBox>

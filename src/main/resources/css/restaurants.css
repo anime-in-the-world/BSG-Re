@@ -1,0 +1,87 @@
+/* Restaurants View Styles */
+
+.restaurant-card {
+    -fx-background-color: white;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 2);
+}
+
+.restaurant-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0, 0, 4);
+    -fx-cursor: hand;
+}
+
+.restaurant-name {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+.restaurant-rating {
+    -fx-font-size: 14px;
+    -fx-text-fill: #F59E0B;
+}
+
+.restaurant-rating-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6B7280;
+}
+
+.restaurant-location {
+    -fx-font-size: 14px;
+    -fx-text-fill: #9CA3AF;
+}
+
+.search-field {
+    -fx-background-color: #F3F4F6;
+    -fx-background-radius: 10;
+    -fx-padding: 12 20;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent;
+}
+
+.search-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #EC6D87;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+}
+
+.view-details-button {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #1F2937;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.view-details-button:hover {
+    -fx-background-color: #E5E7EB;
+}
+
+.reserve-button {
+    -fx-background-color: #EC6D87;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.reserve-button:hover {
+    -fx-background-color: #D1577A;
+}
+
+.reserve-button:disabled {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #9CA3AF;
+    -fx-cursor: default;
+}

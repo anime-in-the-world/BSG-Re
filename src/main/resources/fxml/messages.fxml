@@ -21,8 +21,6 @@
         <Button fx:id="pendingButton" text="Pending" styleClass="header-button" onAction="#handlePending"/>
 
         <Region HBox.hgrow="ALWAYS"/>
-
-        <Button text="🔔" styleClass="notification-button"/>
     </HBox>
 
     <!-- Main Content: Chat List + Chat Area -->
@@ -39,7 +37,7 @@
 
                 <Region HBox.hgrow="ALWAYS"/>
 
-                <Button text="+" styleClass="add-chat-button" onAction="#handleCreateGroup"/>
+                <Button text="+ GC" styleClass="add-group-chat-button" onAction="#handleCreateGroup"/>
             </HBox>
 
             <!-- Chat List -->

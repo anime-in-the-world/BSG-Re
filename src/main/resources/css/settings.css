@@ -27,6 +27,22 @@
     -fx-border-color: transparent;
 }
 
+.settings-menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 15;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.settings-menu-item:hover {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #1F2937;
+}
+
 .settings-menu-item-disabled {
     -fx-background-color: transparent;
     -fx-text-fill: #9CA3AF;

@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.birdsenger.controllers.DashboardController"
@@ -28,7 +30,11 @@
                 <Insets top="25" right="25" bottom="25" left="25"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="💬" styleClass="card-icon"/>
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                    <image>
+                        <Image url="@../Icons/messages-sidebar-icon.png"/>
+                    </image>
+                </ImageView>
                 <Label text="Messages" styleClass="card-title"/>
             </HBox>
             <Label fx:id="unreadMessagesLabel" text="5 unread messages" styleClass="card-value"/>
@@ -42,7 +48,11 @@
                 <Insets top="25" right="25" bottom="25" left="25"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="🏦" styleClass="card-icon"/>
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                    <image>
+                        <Image url="@../Icons/bank-sidebar-icon.png"/>
+                    </image>
+                </ImageView>
                 <Label text="Bank" styleClass="card-title"/>
             </HBox>
             <Label fx:id="balanceLabel" text="Balance: $1,430" styleClass="card-value"/>
@@ -56,7 +66,11 @@
                 <Insets top="25" right="25" bottom="25" left="25"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="💳" styleClass="card-icon"/>
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                    <image>
+                        <Image url="@../Icons/transaction-sidebar-icon.png"/>
+                    </image>
+                </ImageView>
                 <Label text="Transactions" styleClass="card-title"/>
             </HBox>
             <Label fx:id="lastTransactionLabel" text="Aisha Sent 50$" styleClass="card-value"/>
@@ -70,7 +84,11 @@
                 <Insets top="25" right="25" bottom="25" left="25"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="⚙️" styleClass="card-icon"/>
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                    <image>
+                        <Image url="@../Icons/setting-sidebar-icon.png"/>
+                    </image>
+                </ImageView>
                 <Label text="Settings" styleClass="card-title"/>
             </HBox>
             <Label text="Profile, Privacy" styleClass="card-value"/>
@@ -84,7 +102,11 @@
                 <Insets top="25" right="25" bottom="25" left="25"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="🍕" styleClass="card-icon"/>
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                    <image>
+                        <Image url="@../Icons/restaurents-sidebar-icon.png"/>
+                    </image>
+                </ImageView>
                 <Label text="Restaurants" styleClass="card-title"/>
             </HBox>
             <Label text="Last Order: Pizza Hut" styleClass="card-value"/>
@@ -98,7 +120,11 @@
                 <Insets top="25" right="25" bottom="25" left="25"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="⚡" styleClass="card-icon"/>
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                    <image>
+                        <Image url="@../Icons/utilities-sidebar-icon.png"/>
+                    </image>
+                </ImageView>
                 <Label text="Utilities" styleClass="card-title"/>
             </HBox>
             <Label text="1 bill due" styleClass="card-value"/>

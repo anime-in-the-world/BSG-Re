@@ -43,13 +43,6 @@
     -fx-background-color: #FEE2E2;
 }
 
-.notification-button {
-    -fx-background-color: transparent;
-    -fx-font-size: 20px;
-    -fx-cursor: hand;
-    -fx-border-color: transparent;
-}
-
 .chat-list-container {
     -fx-background-color: white;
     -fx-border-color: #E5E7EB;
@@ -62,17 +55,19 @@
     -fx-text-fill: #1F2937;
 }
 
-.add-chat-button {
+.add-group-chat-button {
     -fx-background-color: #EC6D87;
     -fx-text-fill: white;
-    -fx-font-size: 18px;
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-background-radius: 50%;
-    -fx-min-width: 30px;
-    -fx-min-height: 30px;
-    -fx-max-width: 30px;
-    -fx-max-height: 30px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6 12;
     -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.add-group-chat-button:hover {
+    -fx-background-color: #D1577A;
 }
 
 .content-pane {

@@ -1,0 +1,91 @@
+/* Utilities View Styles */
+
+.utility-card {
+    -fx-background-color: white;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 2);
+}
+
+.utility-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0, 0, 4);
+}
+
+.utility-icon-container {
+    -fx-background-radius: 50%;
+    -fx-min-width: 60;
+    -fx-min-height: 60;
+    -fx-max-width: 60;
+    -fx-max-height: 60;
+}
+
+.electricity-icon {
+    -fx-background-color: #FEF3C7;
+}
+
+.water-icon {
+    -fx-background-color: #DBEAFE;
+}
+
+.mobile-icon {
+    -fx-background-color: #E0E7FF;
+}
+
+.internet-icon {
+    -fx-background-color: #D1FAE5;
+}
+
+.utility-name {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+.utility-amount {
+    -fx-font-size: 16px;
+    -fx-text-fill: #6B7280;
+}
+
+.utility-button {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #1F2937;
+    -fx-background-radius: 8;
+    -fx-padding: 12 24;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.utility-button:hover {
+    -fx-background-color: #E5E7EB;
+}
+
+.utility-button:disabled {
+    -fx-background-color: #F9FAFB;
+    -fx-text-fill: #D1D5DB;
+    -fx-cursor: default;
+}
+
+.pay-button {
+    -fx-background-color: #EC6D87;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-padding: 12 24;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.pay-button:hover {
+    -fx-background-color: #D1577A;
+}
+
+.pay-button:disabled {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #9CA3AF;
+    -fx-cursor: default;
+}

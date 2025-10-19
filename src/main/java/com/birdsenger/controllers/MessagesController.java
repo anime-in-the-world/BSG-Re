@@ -12,6 +12,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.json.JSONObject;
+import com.birdsenger.utils.ProfilePictureUtil;
+import javafx.scene.image.ImageView;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -81,16 +83,20 @@ public class MessagesController {
 
     private void loadConversations() {
         String sql = "SELECT DISTINCT c.id, c.name, c.is_group, " +
-                "(SELECT content FROM messages WHERE conversation_id = c.id ORDER BY timestamp DESC LIMIT 1) as last_msg " +
+                "(SELECT content FROM messages WHERE conversation_id = c.id ORDER BY timestamp DESC LIMIT 1) as last_msg, " +
+                "(SELECT timestamp FROM messages WHERE conversation_id = c.id ORDER BY timestamp DESC LIMIT 1) as last_msg_time, " +
+                "(SELECT COUNT(*) FROM messages WHERE conversation_id = c.id AND sender_id != ? AND is_read = false) as unread_count " +
                 "FROM conversations c " +
                 "JOIN conversation_members cm ON c.id = cm.conversation_id " +
                 "WHERE cm.user_id = ? " +
-                "ORDER BY c.id DESC";
+                "ORDER BY last_msg_time DESC NULLS LAST";
 
         try (Connection conn = DatabaseManager.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, SessionManager.getInstance().getCurrentUserId());
+            int currentUserId = SessionManager.getInstance().getCurrentUserId();
+            stmt.setInt(1, currentUserId);
+            stmt.setInt(2, currentUserId);
             ResultSet rs = stmt.executeQuery();
 
             chatList.getChildren().clear();
@@ -100,9 +106,10 @@ public class MessagesController {
                 boolean isGroup = rs.getBoolean("is_group");
                 String name = isGroup ? rs.getString("name") : getOtherUserName(convId);
                 String lastMsg = rs.getString("last_msg");
+                int unreadCount = rs.getInt("unread_count");
                 boolean online = !isGroup && isUserOnline(getOtherUserId(convId));
 
-                HBox chatItem = createChatItem(convId, name, lastMsg != null ? lastMsg : "", online);
+                HBox chatItem = createChatItem(convId, name, lastMsg != null ? lastMsg : "", online, unreadCount);
                 chatList.getChildren().add(chatItem);
             }
 
@@ -118,41 +125,84 @@ public class MessagesController {
         }
     }
 
-    private HBox createChatItem(int convId, String name, String lastMsg, boolean online) {
+    private HBox createChatItem(int convId, String name, String lastMsg, boolean online, int unreadCount) {
         HBox item = new HBox(15);
         item.setAlignment(Pos.CENTER_LEFT);
         item.setPadding(new Insets(15));
         item.setStyle("-fx-background-color: white; -fx-background-radius: 8; -fx-cursor: hand;");
         item.getStyleClass().add("chat-item");
 
-        StackPane avatarPane = new StackPane();
-        Circle avatar = new Circle(25);
-        avatar.setFill(Color.web("#EC6D87"));
+        // Store conversation ID in userData for quick lookup
+        item.setUserData(convId);
 
-        if (online) {
-            Circle indicator = new Circle(8);
-            indicator.setFill(Color.web("#10B981"));
-            indicator.setStroke(Color.WHITE);
-            indicator.setStrokeWidth(2);
-            StackPane.setAlignment(indicator, Pos.BOTTOM_RIGHT);
-            avatarPane.getChildren().addAll(avatar, indicator);
+        StackPane avatarPane = new StackPane();
+
+        // Get profile picture for this conversation
+        boolean isGroup = isConversationGroup(convId);
+        if (!isGroup) {
+            int otherUserId = getOtherUserId(convId);
+            String profilePic = ProfilePictureUtil.getProfilePicture(otherUserId);
+
+            if (profilePic != null && !profilePic.isEmpty()) {
+                ImageView avatar = ProfilePictureUtil.createCircularImageView(profilePic, 25);
+                avatarPane.getChildren().add(avatar);
+            } else {
+                Circle avatar = new Circle(25);
+                avatar.setFill(Color.web("#EC6D87"));
+                avatarPane.getChildren().add(avatar);
+            }
+
+            if (online) {
+                Circle indicator = new Circle(8);
+                indicator.setFill(Color.web("#10B981"));
+                indicator.setStroke(Color.WHITE);
+                indicator.setStrokeWidth(2);
+                StackPane.setAlignment(indicator, Pos.BOTTOM_RIGHT);
+                avatarPane.getChildren().add(indicator);
+            }
         } else {
+            Circle avatar = new Circle(25);
+            avatar.setFill(Color.web("#EC6D87"));
             avatarPane.getChildren().add(avatar);
         }
 
         VBox textBox = new VBox(5);
         Label nameLabel = new Label(name);
-        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+
+        if (unreadCount > 0) {
+            nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1F2937;");
+        } else {
+            nameLabel.setStyle("-fx-font-weight: normal; -fx-font-size: 14px; -fx-text-fill: #1F2937;");
+        }
+
         Label msgLabel = new Label(lastMsg.length() > 40 ? lastMsg.substring(0, 40) + "..." : lastMsg);
-        msgLabel.setStyle("-fx-text-fill: #9CA3AF; -fx-font-size: 12px;");
+
+        if (unreadCount > 0) {
+            msgLabel.setStyle("-fx-text-fill: #1F2937; -fx-font-size: 12px; -fx-font-weight: bold;");
+        } else {
+            msgLabel.setStyle("-fx-text-fill: #9CA3AF; -fx-font-size: 12px;");
+        }
+
         textBox.getChildren().addAll(nameLabel, msgLabel);
         HBox.setHgrow(textBox, Priority.ALWAYS);
 
-        item.getChildren().addAll(avatarPane, textBox);
-        item.setOnMouseClicked(e -> openChat(convId));
+        if (unreadCount > 0) {
+            Label unreadBadge = new Label(String.valueOf(unreadCount));
+            unreadBadge.setStyle("-fx-background-color: #EC6D87; -fx-text-fill: white; " +
+                    "-fx-background-radius: 10; -fx-padding: 2 8; -fx-font-size: 11px; -fx-font-weight: bold;");
+            item.getChildren().addAll(avatarPane, textBox, unreadBadge);
+        } else {
+            item.getChildren().addAll(avatarPane, textBox);
+        }
+
+        item.setOnMouseClicked(e -> {
+            markMessagesAsRead(convId);
+            openChat(convId);
+        });
 
         return item;
     }
+
 
     private void openChat(int conversationId) {
         currentConversationId = conversationId;
@@ -160,6 +210,9 @@ public class MessagesController {
 
         BorderPane chatView = new BorderPane();
         chatView.setStyle("-fx-background-color: white;");
+
+        // Check if it's a group chat
+        boolean isGroup = isConversationGroup(conversationId);
 
         // Top bar
         HBox topBar = new HBox(15);
@@ -173,11 +226,19 @@ public class MessagesController {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Button moneyBtn = new Button("💰 Send Money");
-        moneyBtn.setStyle("-fx-background-color: #FEE2E2; -fx-background-radius: 8; -fx-padding: 8 15; -fx-cursor: hand;");
-        moneyBtn.setOnAction(e -> showSendMoneyDialog());
-
-        topBar.getChildren().addAll(chatName, spacer, moneyBtn);
+        if (isGroup) {
+            // For group chats, show "Group Members" button
+            Button membersBtn = new Button("👥 Group Members");
+            membersBtn.setStyle("-fx-background-color: #FEE2E2; -fx-background-radius: 8; -fx-padding: 8 15; -fx-cursor: hand;");
+            membersBtn.setOnAction(e -> showGroupMembers(conversationId));
+            topBar.getChildren().addAll(chatName, spacer, membersBtn);
+        } else {
+            // For 1-on-1 chats, show "Send Money" button
+            Button moneyBtn = new Button("💰 Send Money");
+            moneyBtn.setStyle("-fx-background-color: #FEE2E2; -fx-background-radius: 8; -fx-padding: 8 15; -fx-cursor: hand;");
+            moneyBtn.setOnAction(e -> showSendMoneyDialog());
+            topBar.getChildren().addAll(chatName, spacer, moneyBtn);
+        }
 
         // Messages area
         chatScrollPane = new ScrollPane();
@@ -221,7 +282,7 @@ public class MessagesController {
     }
 
     private void loadMessages(int convId) {
-        String sql = "SELECT m.*, u.first_name, u.last_name FROM messages m " +
+        String sql = "SELECT m.*, u.first_name, u.last_name, u.profile_picture FROM messages m " +
                 "JOIN users u ON m.sender_id = u.id " +
                 "WHERE m.conversation_id = ? ORDER BY m.timestamp ASC";
 
@@ -233,14 +294,17 @@ public class MessagesController {
 
             chatMessagesArea.getChildren().clear();
             int myId = SessionManager.getInstance().getCurrentUserId();
+            boolean isGroup = isConversationGroup(convId);
 
             while (rs.next()) {
                 int senderId = rs.getInt("sender_id");
                 String content = rs.getString("content");
                 String type = rs.getString("message_type");
                 Timestamp time = rs.getTimestamp("timestamp");
+                String senderName = rs.getString("first_name") + " " + rs.getString("last_name");
+                String profilePic = rs.getString("profile_picture");
 
-                HBox msgBox = createMessageBubble(content, senderId == myId, type, time);
+                HBox msgBox = createMessageBubble(content, senderId == myId, type, time, isGroup ? senderName : null, profilePic);
                 chatMessagesArea.getChildren().add(msgBox);
             }
 
@@ -251,13 +315,34 @@ public class MessagesController {
         }
     }
 
-    private HBox createMessageBubble(String content, boolean isMe, String type, Timestamp time) {
-        HBox container = new HBox();
+    private HBox createMessageBubble(String content, boolean isMe, String type, Timestamp time, String senderName, String profilePic) {
+        HBox container = new HBox(10);
         container.setAlignment(isMe ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+
+        if (!isMe && senderName != null) {
+            // Show profile picture for group chat messages from others
+            StackPane avatarPane = new StackPane();
+            if (profilePic != null && !profilePic.isEmpty()) {
+                ImageView avatar = ProfilePictureUtil.createCircularImageView(profilePic, 15);
+                avatarPane.getChildren().add(avatar);
+            } else {
+                Circle avatar = new Circle(15);
+                avatar.setFill(Color.web("#EC6D87"));
+                avatarPane.getChildren().add(avatar);
+            }
+            container.getChildren().add(avatarPane);
+        }
 
         VBox bubble = new VBox(5);
         bubble.setPadding(new Insets(10, 15, 10, 15));
         bubble.setMaxWidth(400);
+
+        // Show sender name in group chats (for messages from others)
+        if (senderName != null && !isMe) {
+            Label nameLabel = new Label(senderName);
+            nameLabel.setStyle("-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #6B7280;");
+            bubble.getChildren().add(nameLabel);
+        }
 
         if (type.equals("payment")) {
             bubble.setStyle("-fx-background-color: #D1FAE5; -fx-background-radius: 15;");
@@ -293,6 +378,18 @@ public class MessagesController {
         );
 
         messageInput.clear();
+
+        // Immediately reload messages to show your sent message
+        // The socket event will update it for others
+        Platform.runLater(() -> {
+            try {
+                Thread.sleep(100); // Small delay to let server process
+                loadMessages(currentConversationId);
+                loadConversations(); // Update last message in chat list
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void showSendMoneyDialog() {
@@ -318,6 +415,17 @@ public class MessagesController {
                             amt,
                             currentConversationId
                     );
+
+                    // Reload messages after a short delay to show the payment
+                    Platform.runLater(() -> {
+                        try {
+                            Thread.sleep(200); // Wait for server to process
+                            loadMessages(currentConversationId);
+                            loadConversations();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid amount");
@@ -331,9 +439,11 @@ public class MessagesController {
         try {
             int convId = data.getInt("conversationId");
             Platform.runLater(() -> {
+                // Only reload messages if we're viewing this conversation
                 if (convId == currentConversationId) {
                     loadMessages(convId);
                 }
+                // Always reload conversation list to update last message
                 loadConversations();
             });
         } catch (Exception e) {
@@ -341,15 +451,22 @@ public class MessagesController {
         }
     }
 
+
     public void handleMoneyReceived(JSONObject data) {
         try {
+            int convId = data.optInt("conversationId", -1);
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION,
                         "You received $" + data.optDouble("amount", 0));
                 alert.showAndWait();
-                if (currentConversationId != -1) {
-                    loadMessages(currentConversationId);
+
+                // Reload the current conversation to show the payment message
+                if (convId == currentConversationId) {
+                    loadMessages(convId);
                 }
+
+                // Reload conversations list
+                loadConversations();
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -444,8 +561,17 @@ public class MessagesController {
         item.setStyle("-fx-background-color: #F9FAFB; -fx-background-radius: 8;");
 
         StackPane avatarPane = new StackPane();
-        Circle avatar = new Circle(30);
-        avatar.setFill(Color.web("#EC6D87"));
+
+        // Get profile picture
+        String profilePic = ProfilePictureUtil.getProfilePicture(userId);
+        if (profilePic != null && !profilePic.isEmpty()) {
+            ImageView avatar = ProfilePictureUtil.createCircularImageView(profilePic, 30);
+            avatarPane.getChildren().add(avatar);
+        } else {
+            Circle avatar = new Circle(30);
+            avatar.setFill(Color.web("#EC6D87"));
+            avatarPane.getChildren().add(avatar);
+        }
 
         if (online) {
             Circle indicator = new Circle(10);
@@ -453,9 +579,7 @@ public class MessagesController {
             indicator.setStroke(Color.WHITE);
             indicator.setStrokeWidth(2);
             StackPane.setAlignment(indicator, Pos.BOTTOM_RIGHT);
-            avatarPane.getChildren().addAll(avatar, indicator);
-        } else {
-            avatarPane.getChildren().add(avatar);
+            avatarPane.getChildren().add(indicator);
         }
 
         VBox text = new VBox(3);
@@ -574,8 +698,16 @@ public class MessagesController {
         item.setPadding(new Insets(15));
         item.setStyle("-fx-background-color: #F9FAFB; -fx-background-radius: 8;");
 
-        Circle avatar = new Circle(30);
-        avatar.setFill(Color.web("#EC6D87"));
+        // Get profile picture
+        String profilePic = ProfilePictureUtil.getProfilePicture(senderId);
+        if (profilePic != null && !profilePic.isEmpty()) {
+            ImageView avatar = ProfilePictureUtil.createCircularImageView(profilePic, 30);
+            item.getChildren().add(avatar);
+        } else {
+            Circle avatar = new Circle(30);
+            avatar.setFill(Color.web("#EC6D87"));
+            item.getChildren().add(avatar);
+        }
 
         VBox text = new VBox(3);
         Label nameLabel = new Label(name);
@@ -620,7 +752,7 @@ public class MessagesController {
             fade.play();
         });
 
-        item.getChildren().addAll(avatar, text, spacer, acceptBtn, rejectBtn);
+        item.getChildren().addAll(text, spacer, acceptBtn, rejectBtn);
         return item;
     }
 
@@ -839,4 +971,167 @@ public class MessagesController {
         }
         return false;
     }
+
+    private boolean isConversationGroup(int convId) {
+        String sql = "SELECT is_group FROM conversations WHERE id = ?";
+        try (Connection conn = DatabaseManager.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, convId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean("is_group");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private void showGroupMembers(int conversationId) {
+        VBox view = new VBox(20);
+        view.setPadding(new Insets(30));
+        view.setStyle("-fx-background-color: white;");
+
+        Label title = new Label("Group Members");
+        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+
+        VBox membersList = new VBox(15);
+
+        String sql = "SELECT u.id, u.first_name, u.last_name, u.username, u.profile_picture, u.is_online " +
+                "FROM users u JOIN conversation_members cm ON u.id = cm.user_id " +
+                "WHERE cm.conversation_id = ?";
+
+        try (Connection conn = DatabaseManager.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, conversationId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int memberId = rs.getInt("id");
+                String name = rs.getString("first_name") + " " + rs.getString("last_name");
+                String username = rs.getString("username");
+                String profilePic = rs.getString("profile_picture");
+                boolean online = rs.getBoolean("is_online");
+
+                HBox memberItem = createGroupMemberItem(memberId, name, username, profilePic, online);
+                membersList.getChildren().add(memberItem);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ScrollPane scroll = new ScrollPane(membersList);
+        scroll.setFitToWidth(true);
+        scroll.setStyle("-fx-background: white; -fx-background-color: white;");
+        VBox.setVgrow(scroll, Priority.ALWAYS);
+
+        Button backBtn = new Button("Back to Chat");
+        backBtn.setStyle("-fx-background-color: #EC6D87; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 8; -fx-cursor: hand;");
+        backBtn.setOnAction(e -> openChat(conversationId));
+
+        view.getChildren().addAll(title, scroll, backBtn);
+        contentPane.getChildren().setAll(view);
+    }
+
+    private HBox createGroupMemberItem(int userId, String name, String username, String profilePic, boolean online) {
+        HBox item = new HBox(15);
+        item.setAlignment(Pos.CENTER_LEFT);
+        item.setPadding(new Insets(15));
+        item.setStyle("-fx-background-color: #F9FAFB; -fx-background-radius: 8;");
+
+        StackPane avatarPane = new StackPane();
+
+        // Show profile picture
+        if (profilePic != null && !profilePic.isEmpty()) {
+            ImageView avatar = ProfilePictureUtil.createCircularImageView(profilePic, 30);
+            avatarPane.getChildren().add(avatar);
+        } else {
+            Circle avatar = new Circle(30);
+            avatar.setFill(Color.web("#EC6D87"));
+            avatarPane.getChildren().add(avatar);
+        }
+
+        // Online indicator
+        if (online) {
+            Circle indicator = new Circle(10);
+            indicator.setFill(Color.web("#10B981"));
+            indicator.setStroke(Color.WHITE);
+            indicator.setStrokeWidth(2);
+            StackPane.setAlignment(indicator, Pos.BOTTOM_RIGHT);
+            avatarPane.getChildren().add(indicator);
+        }
+
+        VBox text = new VBox(3);
+        Label nameLabel = new Label(name);
+        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+        Label usernameLabel = new Label("@" + username);
+        usernameLabel.setStyle("-fx-text-fill: #6B7280;");
+
+        // Add "You" indicator if it's the current user
+        if (userId == SessionManager.getInstance().getCurrentUserId()) {
+            Label youLabel = new Label("(You)");
+            youLabel.setStyle("-fx-text-fill: #EC6D87; -fx-font-size: 12px;");
+            text.getChildren().addAll(nameLabel, usernameLabel, youLabel);
+        } else {
+            text.getChildren().addAll(nameLabel, usernameLabel);
+        }
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        item.getChildren().addAll(avatarPane, text, spacer);
+        return item;
+    }
+
+
+
+
+    private void markMessagesAsRead(int convId) {
+        String sql = "UPDATE messages SET is_read = true WHERE conversation_id = ? AND sender_id != ? AND is_read = false";
+
+        try (Connection conn = DatabaseManager.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, convId);
+            stmt.setInt(2, SessionManager.getInstance().getCurrentUserId());
+            stmt.executeUpdate();
+
+            // Don't reload conversations here - just update the specific chat item
+            updateChatItemReadStatus(convId);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateChatItemReadStatus(int convId) {
+        for (javafx.scene.Node node : chatList.getChildren()) {
+            if (node instanceof HBox) {
+                HBox item = (HBox) node;
+                // Check if this is the right chat item (you can store convId in userData)
+                if (item.getUserData() != null && item.getUserData().equals(convId)) {
+                    // Remove the unread badge if it exists
+                    if (item.getChildren().size() > 2) {
+                        item.getChildren().remove(2); // Remove badge
+                    }
+                    // Update text styles to non-bold
+                    VBox textBox = (VBox) item.getChildren().get(1);
+                    Label nameLabel = (Label) textBox.getChildren().get(0);
+                    Label msgLabel = (Label) textBox.getChildren().get(1);
+                    nameLabel.setStyle("-fx-font-weight: normal; -fx-font-size: 14px; -fx-text-fill: #1F2937;");
+                    msgLabel.setStyle("-fx-text-fill: #9CA3AF; -fx-font-size: 12px;");
+                    break;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
 }

@@ -4,6 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:id="mainContainer"
@@ -30,21 +32,114 @@
                     <Insets top="20" right="15" left="15"/>
                 </padding>
 
-                <Button text="🏠  Dashboard" styleClass="menu-item" onAction="#handleDashboard" maxWidth="Infinity"/>
-                <Button text="💬  Messages" styleClass="menu-item" onAction="#handleMessages" maxWidth="Infinity"/>
-                <Button text="🏦  Bank" styleClass="menu-item" onAction="#handleBank" maxWidth="Infinity"/>
-                <Button text="💳  Transactions" styleClass="menu-item" onAction="#handleTransactions" maxWidth="Infinity"/>
-                <Button text="🍕  Restaurants" styleClass="menu-item-disabled" onAction="#handleRestaurants" maxWidth="Infinity"/>
-                <Button text="⚡  Utilities" styleClass="menu-item-disabled" onAction="#handleUtilities" maxWidth="Infinity"/>
-                <Button text="⚙️  Settings" styleClass="menu-item" onAction="#handleSettings" maxWidth="Infinity"/>
+                <Button styleClass="menu-item" onAction="#handleDashboard" maxWidth="Infinity">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Icons/dashboard-sidebar-icon.png"/>
+                                </image>
+                            </ImageView>
+                            <Label text="Dashboard"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="menu-item" onAction="#handleMessages" maxWidth="Infinity">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Icons/messages-sidebar-icon.png"/>
+                                </image>
+                            </ImageView>
+                            <Label text="Messages"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="menu-item" onAction="#handleBank" maxWidth="Infinity">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Icons/bank-sidebar-icon.png"/>
+                                </image>
+                            </ImageView>
+                            <Label text="Bank"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="menu-item" onAction="#handleTransactions" maxWidth="Infinity">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Icons/transaction-sidebar-icon.png"/>
+                                </image>
+                            </ImageView>
+                            <Label text="Transactions"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="menu-item-disabled" onAction="#handleRestaurants" maxWidth="Infinity">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Icons/restaurents-sidebar-icon.png"/>
+                                </image>
+                            </ImageView>
+                            <Label text="Restaurants"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="menu-item-disabled" onAction="#handleUtilities" maxWidth="Infinity">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Icons/utilities-sidebar-icon.png"/>
+                                </image>
+                            </ImageView>
+                            <Label text="Utilities"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="menu-item" onAction="#handleSettings" maxWidth="Infinity">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Icons/setting-sidebar-icon.png"/>
+                                </image>
+                            </ImageView>
+                            <Label text="Settings"/>
+                        </HBox>
+                    </graphic>
+                </Button>
 
                 <Region VBox.vgrow="ALWAYS"/>
 
                 <!-- Logout Button -->
-                <Button text="🚪  Logout" styleClass="menu-item-logout" onAction="#handleLogout" maxWidth="Infinity">
+                <Button styleClass="menu-item-logout" onAction="#handleLogout" maxWidth="Infinity">
                     <VBox.margin>
                         <Insets bottom="20"/>
                     </VBox.margin>
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Icons/logout-icon.png"/>
+                                </image>
+                            </ImageView>
+                            <Label text="Logout"/>
+                        </HBox>
+                    </graphic>
                 </Button>
             </VBox>
         </VBox>
@@ -62,14 +157,20 @@
                 <Region HBox.hgrow="ALWAYS"/>
 
                 <!-- Notification Icon -->
-                <Label text="🔔" styleClass="notification-icon"/>
+                <ImageView fitWidth="24" fitHeight="24" preserveRatio="true" styleClass="notification-icon">
+                    <image>
+                        <Image url="@../Icons/notification-bell-icon.png"/>
+                    </image>
+                </ImageView>
 
                 <!-- User Profile -->
                 <HBox spacing="10" alignment="CENTER">
-                    <Circle radius="20" styleClass="user-avatar"/>
+                    <StackPane>
+                        <Circle fx:id="userAvatar" radius="20" styleClass="user-avatar"/>
+                    </StackPane>
                     <VBox spacing="2" alignment="CENTER_LEFT">
-                        <Label fx:id="usernameLabel" text="Fariba Tanzim" styleClass="user-name"/>
-                        <Label text="fariba.tanzim" styleClass="user-username"/>
+                        <Label fx:id="nameLabel" text="Fariba Tanzim" styleClass="user-name"/>
+                        <Label fx:id="usernameLabel" text="fariba.tanzim" styleClass="user-username"/>
                     </VBox>
                 </HBox>
             </HBox>
