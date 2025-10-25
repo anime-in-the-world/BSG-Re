@@ -10,7 +10,7 @@ public class DatabaseManager {
     private HikariDataSource dataSource;
 
     // Your VPS Configuration
-    private static final String DB_HOST = System.getenv().getOrDefault("DB_HOST", "13.229.229.125");
+    private static final String DB_HOST = System.getenv().getOrDefault("DB_HOST", "13.229.69.180");
     private static final String DB_PORT = System.getenv().getOrDefault("DB_PORT", "5432");
     private static final String DB_NAME = System.getenv().getOrDefault("DB_NAME", "birdsenger");
     private static final String DB_USER = System.getenv().getOrDefault("DB_USER", "birduser");

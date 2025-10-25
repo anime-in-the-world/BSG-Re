@@ -31,7 +31,6 @@ public class SignupController {
         messageLabel.setManaged(false);
 
         securityQuestionCombo.getItems().addAll(
-                "Where was your first honeymoon?",
                 "What is your favorite color?",
                 "What is your pet's name?",
                 "What city were you born in?",

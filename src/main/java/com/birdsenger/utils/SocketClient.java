@@ -15,7 +15,7 @@ public class SocketClient {
     private MessagesController messagesController;
 
     // Socket server on VPS
-    private static final String SOCKET_SERVER = "http://13.229.229.125:9092";
+    private static final String SOCKET_SERVER = "http://13.229.69.180:9092";
 
     private SocketClient() {}
 

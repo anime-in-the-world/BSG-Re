@@ -46,7 +46,7 @@ public class SocketServer {
             String content = (String) data.get("content");
 
             try (Connection conn = DriverManager.getConnection(
-                    "jdbc:postgresql://13.229.229.125:5432/birdsenger", "birduser", "BirdSecure2024!")) {
+                    "jdbc:postgresql://13.229.69.180:5432/birdsenger", "birduser", "BirdSecure2024!")) {
 
                 PreparedStatement stmt = conn.prepareStatement(
                         "INSERT INTO messages (conversation_id, sender_id, content, message_type) VALUES (?, ?, ?, 'text') RETURNING id");
@@ -88,7 +88,7 @@ public class SocketServer {
             int convId = ((Number) data.get("conversationId")).intValue();
 
             try (Connection conn = DriverManager.getConnection(
-                    "jdbc:postgresql://13.229.229.125:5432/birdsenger", "birduser", "BirdSecure2024!")) {
+                    "jdbc:postgresql://13.229.69.180:5432/birdsenger", "birduser", "BirdSecure2024!")) {
 
                 conn.setAutoCommit(false);
 
@@ -160,7 +160,7 @@ public class SocketServer {
             System.out.println("📨 Friend request from user " + senderId + " to " + receiverUsername);
 
             try (Connection conn = DriverManager.getConnection(
-                    "jdbc:postgresql://13.229.229.125:5432/birdsenger", "birduser", "BirdSecure2024!")) {
+                    "jdbc:postgresql://13.229.69.180:5432/birdsenger", "birduser", "BirdSecure2024!")) {
 
                 // Find receiver by username or email
                 PreparedStatement findUser = conn.prepareStatement(
@@ -258,7 +258,7 @@ public class SocketServer {
             System.out.println("📬 Responding to friend request " + requestId + ": " + (accept ? "ACCEPT" : "REJECT"));
 
             try (Connection conn = DriverManager.getConnection(
-                    "jdbc:postgresql://13.229.229.125:5432/birdsenger", "birduser", "BirdSecure2024!")) {
+                    "jdbc:postgresql://13.229.69.180:5432/birdsenger", "birduser", "BirdSecure2024!")) {
 
                 if (accept) {
                     // Get sender and receiver IDs
@@ -342,7 +342,7 @@ public class SocketServer {
 
     private void updateOnline(int userId, boolean online) {
         try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://13.229.229.125:5432/birdsenger", "birduser", "BirdSecure2024!")) {
+                "jdbc:postgresql://13.229.69.180:5432/birdsenger", "birduser", "BirdSecure2024!")) {
             PreparedStatement stmt = conn.prepareStatement("UPDATE users SET is_online = ? WHERE id = ?");
             stmt.setBoolean(1, online);
             stmt.setInt(2, userId);
